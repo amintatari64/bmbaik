@@ -1,5 +1,5 @@
 /* ================================================================
-   بزار من برات AI کنم (bmbaik) — تم تاریک، RTL، شبیه chatgpt.com
+   بزار من برات AI کنم (bmbaik.ir) — تم تاریک، RTL، شبیه chatgpt.com
    ================================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
 
@@ -158,6 +158,57 @@ img,svg{max-width:100%}
 .result-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .result-prompt{color:var(--muted);font-size:13px;margin:10px 0 0;overflow-wrap:break-word}
 
+/* ================================================================
+   صفحهٔ خطا (404 / 403 / 500 / …)
+   ================================================================ */
+.error-area{position:relative;overflow:hidden}
+.error-wrap{position:relative;z-index:2;gap:10px;text-align:center;padding:8px 0 4px}
+
+.error-orb{
+  position:absolute;z-index:0;border-radius:50%;filter:blur(70px);opacity:.35;pointer-events:none;
+  animation:orbFloat 12s ease-in-out infinite;
+}
+.error-orb-a{width:320px;height:320px;background:#10a37f;inset-inline-start:-90px;top:-70px}
+.error-orb-b{width:280px;height:280px;background:#4b6cff;inset-inline-end:-80px;bottom:-90px;animation-delay:-6s}
+
+.error-code{
+  position:relative;
+  font-size:clamp(88px,20vw,176px);
+  font-weight:700;line-height:1;letter-spacing:2px;margin:2px 0 -4px;
+  background:linear-gradient(180deg,#ffffff 0%,#bdbdbd 45%,#5f5f5f 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 20px 60px rgba(0,0,0,.55);
+  direction:ltr;unicode-bidi:isolate;
+}
+.error-code::after{
+  content:attr(data-code);
+  position:absolute;inset:0;z-index:-1;
+  color:rgba(16,163,127,.28);filter:blur(18px);
+}
+.error-title{margin:0;font-size:clamp(20px,4.5vw,28px);font-weight:600}
+.error-desc{margin:0;color:var(--muted);font-size:15px;max-width:520px}
+
+.error-hint{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:999px;
+  padding:6px 14px;font-size:13.5px;color:#dcdcdc;max-width:100%;
+}
+.error-hint p{margin:0}
+
+.error-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.error-actions .btn{padding:9px 18px}
+
+.error-path{margin-top:8px;word-break:break-all;max-width:100%}
+.error-path code{
+  background:var(--surface-2);border:1px solid var(--border);border-radius:6px;
+  padding:1px 6px;font-size:11.5px;direction:ltr;unicode-bidi:isolate;display:inline-block;
+}
+
+@keyframes orbFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(0,26px,0) scale(1.08)}
+}
+
 /* ---------- موس مجازی و اورلی ---------- */
 .fake-cursor{
   position:fixed;top:0;left:0;z-index:60;pointer-events:none;opacity:0;
@@ -187,6 +238,8 @@ img,svg{max-width:100%}
 .center-wrap > .fade-in:nth-child(3){animation-delay:.25s}
 .center-wrap > .fade-in:nth-child(4){animation-delay:.36s}
 .center-wrap > .fade-in:nth-child(5){animation-delay:.47s}
+.center-wrap > .fade-in:nth-child(6){animation-delay:.58s}
+.center-wrap > .fade-in:nth-child(7){animation-delay:.69s}
 
 /* ---------- ریسپانسیو ---------- */
 .only-mobile{display:none}
@@ -216,10 +269,20 @@ img,svg{max-width:100%}
   .notice{font-size:13px;padding:10px 12px;border-radius:14px}
   .result-link{flex-direction:column}
   .site-footer{font-size:11px;padding:6px 10px 10px}
+  .error-area{align-items:center}
+  .error-wrap{gap:8px}
+  .error-desc{font-size:14px}
+  .error-hint{border-radius:16px;padding:8px 12px;font-size:13px}
+  .error-actions .btn{padding:8px 14px;font-size:13.5px}
+  .error-orb{filter:blur(55px);opacity:.28}
+  .error-orb-a{width:220px;height:220px}
+  .error-orb-b{width:200px;height:200px}
 }
 @media (max-width:380px){
   .hero-title{font-size:20px}
   .chip{font-size:13px;padding:6px 11px}
+  .error-actions{flex-direction:column;width:100%}
+  .error-actions .btn{width:100%}
 }
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
