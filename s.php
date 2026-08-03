@@ -9,21 +9,11 @@ $store = new Store((string)cfg('data_dir'));
 $row   = preg_match('/^[A-Za-z0-9_-]{3,32}$/', $code) ? $store->find($code) : null;
 
 if (!$row) {
-    http_response_code(404);
-    $pageTitle = 'لینک پیدا نشد | ' . cfg('app_name');
-    $bodyClass = 'page-404';
-    include __DIR__ . '/partials/head.php';
-    ?>
-    <section class="chat-area">
-      <div class="center-wrap">
-        <img class="brand-logo fade-in" src="<?= e(asset('img/openai.svg')) ?>" alt="" width="44" height="44">
-        <h1 class="hero-title fade-in">این لینک پیدا نشد</h1>
-        <p class="disclaimer fade-in">شاید کد اشتباه باشد یا لینک پاک شده باشد.</p>
-        <p class="fade-in"><a class="btn btn-white" href="<?= e(base_url()) ?>/">ساخت لینک جدید</a></p>
-      </div>
-    </section>
-    <?php
-    include __DIR__ . '/partials/foot.php';
+    $errorCode  = 404;
+    $errorTitle = 'این لینک پیدا نشد';
+    $errorText  = 'شاید کد اشتباه تایپ شده باشد یا لینک پاک شده باشد.';
+    $errorHint  = 'می‌توانی در چند ثانیه یک لینک تازه بسازی.';
+    require __DIR__ . '/error.php';
     exit;
 }
 
