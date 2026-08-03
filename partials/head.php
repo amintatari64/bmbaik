@@ -14,7 +14,7 @@ $bodyClass = $bodyClass ?? '';
 <meta name="theme-color" content="#212121">
 <meta name="color-scheme" content="dark">
 <title><?= e($pageTitle) ?></title>
-<meta name="description" content="از AI بپرس — به‌جای جواب دادن به کسی که می‌توانست خودش از هوش مصنوعی بپرسد، لینک بفرست.">
+<meta name="description" content="بزار من برات AI کنم — به‌جای جواب دادن به کسی که می‌توانست خودش از هوش مصنوعی بپرسد، لینک بفرست.">
 <meta property="og:title" content="<?= e($pageTitle) ?>">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="<?= e(asset('img/openai.svg')) ?>">

@@ -16,13 +16,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $store   = new Store((string)cfg('data_dir'));
 $errors  = [];
-$old     = '';
 $created = null;
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $prompt = trim((string)($_POST['prompt'] ?? ''));
     $alias  = trim((string)($_POST['alias'] ?? ''));
-    $old    = $prompt;
 
     // --- ضدّاسپم ۱: تلهٔ عسل (honeypot) ---
     if (trim((string)($_POST['website'] ?? '')) !== '' || trim((string)($_POST['company'] ?? '')) !== '') {
@@ -103,7 +101,7 @@ include __DIR__ . '/partials/head.php';
   <div class="center-wrap">
 
     <div class="notice fade-in" role="note">
-      <span class="notice-badge">از AI بپرس</span>
+      <span class="notice-badge"><?= e((string)cfg('app_name')) ?></span>
       <p>
         یکی به‌جای پرسیدن از هوش مصنوعی، از شما پرسیده؟ سؤالش را اینجا بنویسید و دکمهٔ ارسال را بزنید؛
         یک لینک کوتاه می‌گیرید. لینک را که باز کند، خودش می‌بیند که چطور باید از ChatGPT بپرسد 🙂

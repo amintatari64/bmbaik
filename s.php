@@ -46,7 +46,7 @@ include __DIR__ . '/partials/head.php';
   <div class="center-wrap">
 
     <div class="notice notice-tease fade-in">
-      <span class="notice-badge">از AI بپرس</span>
+      <span class="notice-badge"><?= e((string)cfg('app_name')) ?></span>
       <p>خبر خوب: لازم نیست این را از کسی بپرسی — هوش مصنوعی همیشه بیدار است. بیا دفعهٔ بعد خودت امتحان کنی، دقیقاً همین‌قدر ساده است 😌</p>
     </div>
 
