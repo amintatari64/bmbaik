@@ -18,8 +18,8 @@
   --font:'Vazirmatn', ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-*,*::before,*::after{box-sizing:border-box}
-html,body{height:100%}
+*,*::before,*::after{box-sizing:border-box;min-width:0}
+html,body{height:100%;max-width:100%;overflow-x:hidden}
 body{
   margin:0;
   background:var(--bg);
@@ -29,21 +29,22 @@ body{
   line-height:1.75;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  overflow:hidden;
+  overflow-y:hidden;
 }
-button,input,textarea{font:inherit;color:inherit}
+button,input,textarea{font:inherit;color:inherit;max-width:100%}
 a{color:inherit;text-decoration:none}
+img,svg{max-width:100%}
 
 /* ---------- چیدمان کلی ---------- */
-.app{display:flex;height:100dvh;min-height:100dvh}
-.main{flex:1;display:flex;flex-direction:column;min-width:0;position:relative}
+.app{display:flex;height:100dvh;min-height:100dvh;width:100%;max-width:100%;overflow-x:hidden;position:relative}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;max-width:100%;position:relative;overflow-x:hidden}
 
 /* ---------- نوار کناری ---------- */
 .sidebar{
   width:260px;flex:0 0 260px;background:var(--sidebar);
   display:flex;flex-direction:column;gap:6px;padding:10px 8px;
   border-inline-end:1px solid rgba(255,255,255,.05);
-  transition:transform .25s ease;
+  transition:transform .25s ease, visibility .25s ease;
 }
 .sidebar-top{display:flex;align-items:center;justify-content:space-between;padding:2px 4px 8px}
 .sidebar-nav{display:flex;flex-direction:column;gap:2px}
@@ -74,7 +75,7 @@ a{color:inherit;text-decoration:none}
 .btn-ghost:hover{background:var(--surface-2)}
 
 /* ---------- ناحیهٔ مرکزی ---------- */
-.chat-area{flex:1;overflow-y:auto;display:flex;align-items:center;justify-content:center;padding:8px 16px 24px}
+.chat-area{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;align-items:center;justify-content:center;padding:8px 16px 24px;width:100%}
 .center-wrap{width:100%;max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:14px}
 .brand-logo{opacity:.95}
 .hero-title{
@@ -91,7 +92,7 @@ a{color:inherit;text-decoration:none}
 .notice-tease{border-color:rgba(16,163,127,.35)}
 
 /* ---------- کادر ورود پیام ---------- */
-.composer-form{width:100%}
+.composer-form{width:100%;position:relative}
 .composer{
   width:100%;background:var(--surface);border:1px solid rgba(255,255,255,.06);
   border-radius:var(--radius-composer);box-shadow:0 8px 30px rgba(0,0,0,.28);
@@ -100,17 +101,18 @@ a{color:inherit;text-decoration:none}
 .composer:focus-within{border-color:rgba(255,255,255,.18)}
 .composer-input{
   width:100%;max-height:200px;min-height:28px;resize:none;border:0;outline:0;background:transparent;
-  color:var(--text);font-size:16px;line-height:1.8;padding:6px 6px 2px;overflow-y:auto;
+  color:var(--text);font-size:16px;line-height:1.8;padding:6px 6px 2px;overflow-y:auto;overflow-x:hidden;
+  overflow-wrap:break-word;word-break:break-word;
 }
 .composer-input::placeholder{color:#8f8f8f}
 .composer-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:4px}
 .composer-left,.composer-right{display:flex;align-items:center;gap:6px}
-.round-btn{width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:transparent;color:#e3e3e3;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.round-btn{width:36px;height:36px;border-radius:999px;border:1px solid var(--border);background:transparent;color:#e3e3e3;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}
 .round-btn:hover{background:var(--hover)}
-.pill-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--border);background:transparent;color:#e3e3e3;font-size:14px;cursor:pointer}
+.pill-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--border);background:transparent;color:#e3e3e3;font-size:14px;cursor:pointer;flex:0 0 auto}
 .pill-btn:hover{background:var(--hover)}
 .send-btn{
-  width:36px;height:36px;border-radius:999px;border:0;background:var(--white);color:#0d0d0d;
+  width:36px;height:36px;border-radius:999px;border:0;background:var(--white);color:#0d0d0d;flex:0 0 auto;
   display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .12s ease,opacity .15s ease;
 }
 .send-btn:hover{opacity:.88}
@@ -118,16 +120,19 @@ a{color:inherit;text-decoration:none}
 
 /* کد دلخواه */
 .alias-box{width:100%;font-size:13px;color:var(--muted);margin-top:2px}
-.alias-box summary{cursor:pointer;padding:4px 6px;border-radius:8px;width:max-content}
+.alias-box summary{cursor:pointer;padding:4px 6px;border-radius:8px;width:max-content;max-width:100%}
 .alias-box summary:hover{background:var(--surface-2)}
 .alias-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 6px 0}
-.alias-row input{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 10px;outline:0;min-width:160px}
+.alias-row input{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 10px;outline:0;min-width:140px;flex:1}
 
-/* honeypot — مخفی از دید کاربر */
-.hp-field{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden;opacity:0}
+/* honeypot — مخفی از دید کاربر بدون ایجاد اسکرول افقی */
+.hp-field{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;opacity:0;pointer-events:none;
+}
 
 /* ---------- پیشنهادها ---------- */
-.suggestions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px}
+.suggestions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px;max-width:100%}
 .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:transparent;color:#d7d7d7;border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;transition:background .15s ease}
 .chip:hover{background:var(--surface-2)}
 .chip.is-static{cursor:default}
@@ -141,44 +146,47 @@ a{color:inherit;text-decoration:none}
 .result-link{display:flex;gap:8px}
 .result-link input{flex:1;min-width:0;background:#242424;border:1px solid var(--border);border-radius:12px;padding:9px 12px;outline:0;font-size:14px}
 .result-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.result-prompt{color:var(--muted);font-size:13px;margin:10px 0 0}
+.result-prompt{color:var(--muted);font-size:13px;margin:10px 0 0;overflow-wrap:break-word}
 
 /* ---------- موس مجازی و اورلی ---------- */
 .fake-cursor{
   position:fixed;top:0;left:0;z-index:60;pointer-events:none;opacity:0;
   transform:translate(50vw,20vh);
-  transition:transform 1s cubic-bezier(.22,.61,.36,1),opacity .3s ease;
+  transition:transform 1.6s cubic-bezier(.25,.55,.3,1),opacity .4s ease;
   filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));
 }
 .fake-cursor.is-visible{opacity:1}
 .fake-cursor.is-clicking svg{transform:scale(.82)}
-.fake-cursor svg{transition:transform .15s ease}
+.fake-cursor svg{transition:transform .18s ease}
 .overlay{
   position:fixed;inset:0;z-index:70;background:rgba(33,33,33,.94);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s ease;color:var(--muted);
+  opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;color:var(--muted);
 }
 .overlay.is-visible{opacity:1;visibility:visible}
-.overlay-logo{animation:pulse 1.2s ease-in-out infinite}
+.overlay-logo{animation:pulse 1.4s ease-in-out infinite}
 .skip-btn{margin-top:6px;background:transparent;border:0;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .skip-btn:hover{color:var(--text)}
 
 /* ---------- انیمیشن fade ---------- */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes pulse{0%,100%{opacity:.5;transform:scale(.96)}50%{opacity:1;transform:scale(1.04)}}
-.fade-in{animation:fadeUp .55s cubic-bezier(.22,.61,.36,1) both}
-.center-wrap > .fade-in:nth-child(1){animation-delay:.02s}
-.center-wrap > .fade-in:nth-child(2){animation-delay:.10s}
-.center-wrap > .fade-in:nth-child(3){animation-delay:.18s}
-.center-wrap > .fade-in:nth-child(4){animation-delay:.26s}
-.center-wrap > .fade-in:nth-child(5){animation-delay:.34s}
+.fade-in{animation:fadeUp .7s cubic-bezier(.22,.61,.36,1) both}
+.center-wrap > .fade-in:nth-child(1){animation-delay:.03s}
+.center-wrap > .fade-in:nth-child(2){animation-delay:.14s}
+.center-wrap > .fade-in:nth-child(3){animation-delay:.25s}
+.center-wrap > .fade-in:nth-child(4){animation-delay:.36s}
+.center-wrap > .fade-in:nth-child(5){animation-delay:.47s}
 
 /* ---------- ریسپانسیو ---------- */
 .only-mobile{display:none}
 @media (max-width:1024px){
-  .sidebar{position:fixed;inset-inline-start:0;top:0;bottom:0;z-index:50;transform:translateX(100%)}
-  html[dir="rtl"] .sidebar{transform:translateX(100%)}
-  .sidebar.is-open{transform:none!important}
+  .sidebar{
+    position:fixed;inset-inline-start:0;top:0;bottom:0;z-index:50;
+    transform:translateX(100%);visibility:hidden;
+  }
+  html[dir="ltr"] .sidebar{transform:translateX(-100%)}
+  .sidebar.is-open{transform:none!important;visibility:visible}
   .only-mobile{display:inline-flex}
 }
 @media (min-width:1025px){

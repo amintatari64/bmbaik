@@ -79,8 +79,5 @@ $bodyClass = $bodyClass ?? '';
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-      <div class="topbar-end">
-        <button class="btn btn-white" type="button">ورود</button>
-        <button class="btn btn-ghost only-desktop" type="button">رایگان امتحان کنید</button>
-      </div>
+      <div class="topbar-end"></div>
     </header>

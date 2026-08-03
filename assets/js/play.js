@@ -1,4 +1,4 @@
-/* از AI بپرس — انیمیشن موس و تایپ خودکار و انتقال به ChatGPT */
+/* از AI بپرس — انیمیشن موس و تایپ خودکار و انتقال به ChatGPT (ریتم آرام) */
 (function () {
   'use strict';
 
@@ -7,7 +7,7 @@
 
   var prompt = stage.getAttribute('data-prompt') || '';
   var target = stage.getAttribute('data-target') || 'https://chatgpt.com/';
-  var speed = parseInt(stage.getAttribute('data-speed') || '55', 10);
+  var speed = parseInt(stage.getAttribute('data-speed') || '95', 10);
 
   var ta = document.getElementById('prompt');
   var send = document.getElementById('sendBtn');
@@ -34,7 +34,7 @@
     setTimeout(function () {
       if (cursor) cursor.classList.remove('is-clicking');
       if (el) el.classList.remove('is-clicked');
-    }, 220);
+    }, 260);
   }
 
   function grow() {
@@ -47,7 +47,7 @@
     if (finished) return;
     finished = true;
     if (overlay) overlay.classList.add('is-visible');
-    setTimeout(function () { window.location.href = target; }, 700);
+    setTimeout(function () { window.location.href = target; }, 900);
   }
 
   if (skip) skip.addEventListener('click', go);
@@ -57,39 +57,40 @@
 
     cursor.style.transform = 'translate(' + (window.innerWidth * 0.5) + 'px, ' + (window.innerHeight * 0.18) + 'px)';
     cursor.classList.add('is-visible');
-    await sleep(700);
+    await sleep(1000);
 
-    // موس می‌رود روی کادر متن و کلیک می‌کند
+    // موس به آرامی روی کادر متن می‌رود و کلیک می‌کند
     moveTo(ta);
-    await sleep(1050);
+    await sleep(1750);
     click(ta);
     ta.focus({ preventScroll: true });
-    await sleep(380);
+    await sleep(650);
 
-    // تایپ کردن متن
+    // تایپ کردن متن (با مکث بیشتر بعد از فاصله و نقطه)
     var chars = Array.from(prompt);
     for (var i = 0; i < chars.length; i++) {
       ta.value += chars[i];
       grow();
       ta.scrollTop = ta.scrollHeight;
-      await sleep(reduced ? 0 : speed + Math.random() * 45);
+      var extra = (chars[i] === ' ' ? 60 : 0) + ('.،!؟?\n'.indexOf(chars[i]) > -1 ? 220 : 0);
+      await sleep(reduced ? 0 : speed + extra + Math.random() * 55);
     }
 
-    await sleep(650);
+    await sleep(950);
 
-    // موس می‌رود روی دکمهٔ ارسال و می‌زند
+    // موس به سمت دکمهٔ ارسال می‌رود و می‌زند
     moveTo(send);
-    await sleep(900);
+    await sleep(1600);
     click(send);
-    await sleep(320);
+    await sleep(500);
 
     go();
   }
 
   window.addEventListener('load', function () {
-    setTimeout(run, 350);
+    setTimeout(run, 500);
   });
 
-  // اگر به هر دلیلی انیمیشن گیر کرد، حداکثر پس از ۹۰ ثانیه منتقل می‌شویم
-  setTimeout(go, 90000);
+  // اگر به هر دلیلی انیمیشن گیر کرد، حداکثر پس از ۳ دقیقه منتقل می‌شویم
+  setTimeout(go, 180000);
 })();
