@@ -1,36 +1,37 @@
-# بزار من برات AI کنم
+# Let Me AI That For You
 
-**دامنه:** [bmbaik.ir](https://bmbaik.ir)
+**Domain:** [bmbaik.ir](https://bmbaik.ir)
 
-نسخهٔ ChatGPTی «بذار من برات گوگل کنم».
-وقتی کسی به‌جای پرسیدن از هوش مصنوعی از شما می‌پرسد، سؤالش را در bmbaik.ir تایپ می‌کنید، یک لینک کوتاه می‌گیرید و برایش می‌فرستید.
-او که لینک را باز کند، صفحه‌ای کاملاً شبیه chatgpt.com می‌بیند: نشانگر موس روی کادر متن کلیک می‌کند، سؤال تایپ می‌شود، دکمهٔ ارسال زده می‌شود و در نهایت به `https://chatgpt.com/?prompt=...` منتقل می‌شود.
+The ChatGPT version of "Let Me Google That For You".
 
-## ویژگی‌ها
+When someone asks you a question instead of asking an AI, you type their question on bmbaik.ir, get a short link, and send it to them.
+When they open the link, they see a page that looks exactly like chatgpt.com: the mouse cursor clicks the text box, the question is typed out, the send button is pressed, and finally they are redirected to `https://chatgpt.com/?prompt=...`.
 
-- طراحی تاریک (پیش‌فرض) و راست‌به‌چپ، شبیه صفحهٔ اصلی ChatGPT
-- کاملاً ریسپانسیو و بدون اسکرول افقی
-- فاویکان لوگوی OpenAI
-- انیمیشن fade + حرکت آرام موس و تایپ خودکار
-- کوتاه‌کنندهٔ لینک با کد تصادفی یا کد دلخواه (مثلاً `bmbaik.ir/s/aB3xY9`)
-- ضدّاسپم ساده: honeypot + امضای زمان فرم + محدودیت سرعت
-- ذخیره‌سازی خودکار: SQLite و در صورت نبود، فایل JSON (مناسب هاست اشتراکی)
-- بدون نیاز به Composer یا MySQL
+## Features
 
-## نصب روی هاست اشتراکی
+- Dark (default) and RTL design, just like the ChatGPT home page
+- Fully responsive, with no horizontal scrolling
+- OpenAI logo favicon
+- Fade animation plus smooth cursor movement and automatic typing
+- Link shortener with a random or custom code (e.g. `bmbaik.ir/s/aB3xY9`)
+- Simple anti-spam: honeypot, form timestamp signature, and rate limiting
+- Automatic storage: SQLite, falling back to a JSON file (ideal for shared hosting)
+- No Composer or MySQL required
 
-1. تمام فایل‌ها را در `public_html` دامنهٔ `bmbaik.ir` (یا هر زیرپوشه‌ای مثل `/ai`) آپلود کنید.
-2. دسترسی نوشتن پوشهٔ `data` را روی `755` یا `775` بگذارید.
-3. در `config.php` مقدار `secret` را عوض کنید (نام سایت، دامنه و متن فوتر هم همینجا قابل تغییر است).
-4. تمام! PHP 7.4 به بالا کافی است.
+## Installation on shared hosting
 
-## دربارهٔ خطای 404 در لینک‌های `/s/CODE`
+1. Upload all files to the `public_html` directory of the `bmbaik.ir` domain (or any subfolder, such as `/ai`).
+2. Set write permissions on the `data` folder to `755` or `775`.
+3. Change the `secret` value in `config.php` (the site name, domain, and footer text can also be changed there).
+4. Done! PHP 7.4 or later is all you need.
 
-- فایل `.htaccess` مسیر `…/s/CODE` را به `s.php?c=CODE` می‌فرستد و قواعد نسبی هستند، پس در زیرپوشه (مثل `http://localhost/ai/`) هم کار می‌کند.
-- اگر `mod_rewrite` در دسترس نباشد، برنامه خودکار لینک را به شکل `…/s.php?c=CODE` می‌سازد.
-- لینک `…/index.php?c=CODE` هم پشتیبانی می‌شود.
+## About 404 errors on `/s/CODE` links
 
-### نمونهٔ تنظیم Nginx
+- The `.htaccess` file routes `…/s/CODE` to `s.php?c=CODE`, and the rules are relative, so it also works in a subfolder (e.g. `http://localhost/ai/`).
+- If `mod_rewrite` is unavailable, the app automatically builds links in the `…/s.php?c=CODE` form.
+- Links in the `…/index.php?c=CODE` form are supported as well.
+
+### Example Nginx configuration
 
 ```nginx
 location / {
@@ -41,20 +42,20 @@ location ~ ^/s/([A-Za-z0-9_-]{3,32})$ {
 }
 ```
 
-## ساختار پروژه
+## Project structure
 
 ```
-index.php            صفحهٔ اصلی + ساخت لینک
-s.php                صفحهٔ نمایش (موس + تایپ + انتقال)
-config.php           تنظیمات (نام سایت، دامنه، متن فوتر، سرعت تایپ و …)
-lib/                 توابع کمکی و ذخیره‌سازی
-partials/            قالب مشترک صفحات (هدر، کادر متن، فوتر)
-assets/              CSS / JS / لوگو
-data/                دیتابیس لینک‌ها (محافظت‌شده)
+index.php            Home page + link creation
+s.php                Playback page (cursor + typing + redirect)
+config.php           Settings (site name, domain, footer text, typing speed, etc.)
+lib/                 Helper functions and storage
+partials/            Shared page templates (header, text box, footer)
+assets/              CSS / JS / logo
+data/                Link database (protected)
 ```
 
-## الهام
+## Inspiration
 
-الهام گرفته شده از [bmbgk.ir](https://bmbgk.ir/) و [jadijadi/re-lmgtfy](https://github.com/jadijadi/re-lmgtfy).
+Inspired by [bmbgk.ir](https://bmbgk.ir/) and [jadijadi/re-lmgtfy](https://github.com/jadijadi/re-lmgtfy).
 
-> این پروژه مستقل است و هیچ وابستگی رسمی به OpenAI ندارد؛ لوگو فقط برای شباهت ظاهری استفاده شده است.
+> This project is independent and has no official affiliation with OpenAI; the logo is used only for visual resemblance.
